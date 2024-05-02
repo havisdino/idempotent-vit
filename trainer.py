@@ -62,24 +62,31 @@ class Trainer:
             ff_z = self.f(f_z)
             f_fz = self.f_copy(fz)
 
-            loss_rec = (fx - x).pow(2).mean()
-            loss_idem = (f_fz - fz).pow(2).mean()
-            loss_tight = -(ff_z - f_z).pow(2).mean()
+            self.loss_rec = (fx - x).pow(2).mean()
+            self.loss_idem = (f_fz - fz).pow(2).mean()
+            self.loss_tight = -(ff_z - f_z).pow(2).mean()
             
-            self.loss = loss_rec + loss_idem + loss_tight * 0.1
+            self.loss = self.loss_rec + self.loss_idem + self.loss_tight * 0.1
         self.update()
+    
+    def metric_info(self):
+        return dict(
+            loss=self.loss.detach().item(),
+            loss_rec=self.loss_rec.detach().item(),
+            loss_idem=self.loss_idem.detach().item(),
+            loss_tight=self.loss_tight.detach().item()
+        )
         
     def train(self, data_loader, logger: Logger):
         n_epochs = self.config.train.n_epochs
-        for epoch in range(1 + n_epochs):
+        for epoch in range(1, 1 + n_epochs):
             for x in (bar := tqdm(data_loader)):
                 x = x.to(self.device)
                 self.train_step(x)
                 
-                logger.log(loss=self.loss.detach().item())
-                bar.set_description(f'epoch: {epoch}')
-                bar.set_postfix(loss=self.loss.detach().item())
-
+                logger.log(**self.metric_info())
+                bar.set_description(f'epoch {epoch}')
+                bar.set_postfix(**self.metric_info())
         imgs = sample(self.f, 16, self.config)
         logger.log(images=imgs)
         
