@@ -5,13 +5,19 @@ import os
 
 
 def img2seq(images, d_patch):
-    B = images.size(0)
-    return images.view(B, -1, d_patch)
+    if images.ndim == 4:
+        B = images.size(0)
+        return images.view(B, -1, d_patch)
+    elif images.ndim == 3:
+        return images.view(-1, d_patch)
 
 
 def seq2img(sequences, img_shape):
-    B = sequences.size(0)
-    return sequences.view(B, *img_shape)
+    if sequences.ndim == 3:
+        B = sequences.size(0)
+        return sequences.view(B, *img_shape)
+    elif sequences.ndim == 2:
+        return sequences.view(*img_shape)
 
 
 class ImageDataset(Dataset):

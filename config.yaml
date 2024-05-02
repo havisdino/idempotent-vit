@@ -2,12 +2,12 @@ data:
   img_shape: [3, 128, 128]
 
 model:
-  d_patch: 64
+  d_patch: 128
   n_patches: 384
   d_model: 256
   n_heads: 4
   n_blocks: 6
-  dff: 1024
+  dff: 512
   dropout: 0.2
 
 train:
