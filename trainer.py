@@ -18,6 +18,7 @@ class Trainer:
     config: Any
     
     def __post_init__(self):
+        self.device = self.config.train.device
         if self.config.train.distributed:
             self.f = nn.DataParallel(self.f)
             self.f_copy = nn.DataParallel(self.f_copy)

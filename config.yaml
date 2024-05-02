@@ -14,7 +14,7 @@ train:
   data_path: ./data
   n_epochs: 1000
   batch_size: 128
-  learning_rate: 1e-3
+  learning_rate: 0.001
   device: cuda
   use_amp: true
   distributed: true
