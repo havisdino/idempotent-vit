@@ -14,7 +14,7 @@ def main():
 
     f = get_model_from_config(config.model)
     f_copy = get_model_from_config(config.model)
-    opt = torch.optim.Adam(config.train.learning_rate)
+    opt = torch.optim.Adam(f.parameters(), config.train.learning_rate)
     grad_scaler = torch.cuda.amp.GradScaler()
 
     trainer = Trainer(f, f_copy, opt, grad_scaler, config)
