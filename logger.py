@@ -20,6 +20,7 @@ class TensorBoardLogger(Logger):
     
     def log(self, **kwargs):
         global_step = kwargs.get('global_step')
+        del kwargs['global_step']
         
         for tag, value in kwargs.items():
             if isinstance(value, torch.Tensor) and value.ndim == 4:

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Any
 import torch
 from torch import nn
-from tqdm.auto import tqdm
+from tqdm import tqdm
 
 from sample import sample
 from logger import Logger
@@ -84,7 +84,7 @@ class Trainer:
                 x = x.to(self.device)
                 self.train_step(x)
                 
-                logger.log(**self.metric_info())
+                logger.log(global_step=self.global_step, **self.metric_info())
                 bar.set_description(f'epoch {epoch}')
                 bar.set_postfix(**self.metric_info())
         imgs = sample(self.f, 16, self.config)
