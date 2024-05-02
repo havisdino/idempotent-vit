@@ -18,3 +18,4 @@ train:
   device: cuda
   use_amp: true
   distributed: true
+  checkpoint_retention: 3

@@ -7,6 +7,7 @@ from tqdm import tqdm
 from sample import sample
 from logger import Logger
 from modules import ViT
+from utils import save
 
 
 @dataclass(eq=False)
@@ -88,5 +89,6 @@ class Trainer:
                 bar.set_description(f'epoch {epoch}')
                 bar.set_postfix(**self.metric_info())
             imgs = sample(self.f, 16, self.config)
-            logger.log(images=imgs)
+            logger.log(global_step=self.global_step, images=imgs)
+            save(self.get_states(), epoch, self.config.train.checkpoint_retention)
         
