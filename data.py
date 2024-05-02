@@ -15,11 +15,12 @@ def seq2img(sequences, img_shape):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, directory, img_size):
+    def __init__(self, directory, img_size, d_patch):
         self.transform = T.Compose([
             T.ToTensor(),
             T.Lambda(lambda x: x * 2. - 1),
-            T.Resize(img_size, antialias=True)
+            T.Resize(img_size, antialias=True),
+            T.Lambda(lambda x: img2seq(x, d_patch))
         ])
         
         self.directory = directory

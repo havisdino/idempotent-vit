@@ -18,7 +18,7 @@ def main():
     grad_scaler = torch.cuda.amp.GradScaler()
 
     trainer = Trainer(f, f_copy, opt, grad_scaler, config)
-    dataset = ImageDataset(config.train.data_path, config.data.img_shape[1:])
+    dataset = ImageDataset(config.train.data_path, config.data.img_shape[1:], config.model.d_patch)
     data_loader = DataLoader(
         dataset, config.train.batch_size,
         shuffle=True, prefetch_factor=2, num_workers=2
