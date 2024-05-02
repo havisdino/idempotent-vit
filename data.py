@@ -30,7 +30,7 @@ class ImageDataset(Dataset):
         return os.path.join(self.directory, fname)
 
     def __len__(self):
-        return len(self.paths)
+        return len(self.fnames)
 
     def __getitem__(self, idx):
         path = self.get_path(idx)

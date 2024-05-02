@@ -53,7 +53,7 @@ class Trainer:
         self.f.train()
         self.f_copy.train()
         
-        with torch.autocast(self.devce, torch.float16, self.config.train.use_amp):
+        with torch.autocast(self.device, torch.float16, self.config.train.use_amp):
             z = torch.randn_like(x)
             self.f_copy.load_state_dict(self.f.state_dict())
             fx = self.f(x)
