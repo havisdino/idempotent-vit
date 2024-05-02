@@ -1,0 +1,20 @@
+data:
+  img_shape: [3, 128, 128]
+
+model:
+  d_patch: 64
+  n_patches: 384
+  d_model: 256
+  n_heads: 4
+  n_blocks: 6
+  dff: 1024
+  dropout: 0.2
+
+train:
+  data_path: ./data
+  n_epochs: 1000
+  batch_size: 128
+  learning_rate: 1e-3
+  device: cuda
+  use_amp: true
+  distributed: true
