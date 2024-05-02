@@ -87,6 +87,6 @@ class Trainer:
                 logger.log(global_step=self.global_step, **self.metric_info())
                 bar.set_description(f'epoch {epoch}')
                 bar.set_postfix(**self.metric_info())
-        imgs = sample(self.f, 16, self.config)
-        logger.log(images=imgs)
+            imgs = sample(self.f, 16, self.config)
+            logger.log(images=imgs)
         

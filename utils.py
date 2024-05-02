@@ -29,9 +29,13 @@ def load_config(path='config.yaml'):
 
 
 def save(states, epoch, checkpoint_retention):
-    file = f'G-{epoch}'
-    last_k = epoch - checkpoint_retention
-    last_file = f'G-{last_k}'
+    dir = 'checkpoints'
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+        
+    file = os.path.join(dir, f'G-{epoch}')
+    k = epoch - checkpoint_retention
+    last_file = os.path.join(dir, f'G-{k}')
     if os.path.exists(last_file):
         os.remove(last_file)
     torch.save(states, file)
