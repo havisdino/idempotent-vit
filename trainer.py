@@ -42,11 +42,11 @@ class Trainer:
     
     def update(self):
         self.opt.zero_grad()
-        self.scaler.scale(self.loss).backward()
-        self.scaler.unscale_(self.opt)
+        self.grad_scaler.scale(self.loss).backward()
+        self.grad_scaler.unscale_(self.opt)
         nn.utils.clip_grad_norm_(self.f.parameters(), max_norm=1.0)
-        self.scaler.step(self.opt)
-        self.scaler.update()
+        self.grad_scaler.step(self.opt)
+        self.grad_scaler.update()
         self.global_step += 1
     
     def train_step(self, x):
