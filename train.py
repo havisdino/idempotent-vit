@@ -5,7 +5,7 @@ from data import ImageDataset
 from logger import TensorBoardLogger
 from modules import get_model_from_config
 from trainer import Trainer
-from utils import load_config
+from utils import init_weights, load_config
 
 
 def main():
@@ -13,6 +13,7 @@ def main():
     logger = TensorBoardLogger()
 
     f = get_model_from_config(config.model)
+    f.apply(init_weights)
     f_copy = get_model_from_config(config.model)
     opt = torch.optim.Adam(f.parameters(), config.train.learning_rate)
     grad_scaler = torch.cuda.amp.GradScaler()

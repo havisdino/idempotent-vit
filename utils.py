@@ -1,7 +1,13 @@
 import argparse
 import os
 import torch
+from torch import nn
 import yaml
+
+
+def init_weights(m):
+    for p in m.parameters():
+        nn.init.normal_(p, std=0.04)
 
 
 def _dict2namespace(config):
